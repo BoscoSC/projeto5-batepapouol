@@ -1,12 +1,26 @@
+let dados;
+
+//nome do Usuario
 const nomeUsuario = prompt('Qual seu nome?');
 console.log(nomeUsuario);
 
-let dados;
+const enviaNome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", {name: nomeUsuario});
+enviaNome.then(recebeMensagem);
+enviaNome.catch(tratarErro);
 
-const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+//manter conexão
+setInterval(manterConexao, 5000);
+function manterConexao(){
+  axios.post("https://mock-api.driven.com.br/api/v6/uol/status", {name: nomeUsuario})
+}
 
-promessa.then(processarResposta);
-promessa.catch(tratarErro);
+//recebe mensagens
+function recebeMensagem(){
+  const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+
+  promessa.then(processarResposta);
+  promessa.catch(tratarErro);
+}
 
 function atualiza(){
   const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -63,7 +77,7 @@ function mandarMensagem(){
     text: minhaMensagem,
     type: "message"
   }
-  
+
   const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem); 
   requisicao.then(processarResposta);
   requisicao.catch(tratarError);
