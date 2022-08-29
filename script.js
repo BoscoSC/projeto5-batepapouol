@@ -9,10 +9,10 @@ enviaNome.then(recebeMensagem);
 enviaNome.catch(tratarErro);
 
 //manter conexão
-setInterval(manterConexao, 5000);
 function manterConexao(){
-  axios.post("https://mock-api.driven.com.br/api/v6/uol/status", {name: nomeUsuario})
+  axios.post("https://mock-api.driven.com.br/api/v6/uol/status", {name: nomeUsuario}).catch(tratarErro);
 }
+setInterval(manterConexao, 5000);
 
 //recebe mensagens
 function recebeMensagem(){
@@ -28,11 +28,10 @@ function atualiza(){
   promessa.then(processarResposta);
   promessa.catch(tratarErro);
 }
-
+atualiza();
 setInterval(atualiza, 3000);
 
 function processarResposta(resposta) {
-  console.log(resposta);
 	console.log(resposta.data);
 
   dados = resposta.data;
@@ -65,6 +64,10 @@ function renderizarMensagem(){
     `;
     }
   }
+  const todasMensagens = document.querySelectorAll('.msg');
+  const ultimaMensagem = todasMensagens[todasMensagens.length-1];
+  console.log(ultimaMensagem)
+  ultimaMensagem.scrollIntoView();
 }
 
 function mandarMensagem(){
@@ -80,5 +83,5 @@ function mandarMensagem(){
 
   const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem); 
   requisicao.then(processarResposta);
-  requisicao.catch(tratarError);
+  requisicao.catch(tratarErro);
 }
