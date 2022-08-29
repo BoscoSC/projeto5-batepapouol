@@ -21,10 +21,10 @@
     <div class="msg status">
       <p><span>(09:21:45) </span><strong>João</strong> entra na sala...</p>
     </div>
-    <div class="msg normal">
+    <div class="msg text">
       <p><span>(09:22:28) </span><strong>João</strong> para <strong>Todos</strong>:  Bom dia</p>
     </div>
-    <div class="msg normal">
+    <div class="msg text">
       <p><span>(09:22:38) </span><strong>Maria</strong> para <strong>João</strong>:  Oi João :)</p>
     </div>
     <div class="msg reserved">
@@ -36,10 +36,12 @@
   </div>
 
   <div class="bottom">
-    <input type="text" placeholder="Escreva aqui...">
-    <ion-icon class="icon-bottom" name="paper-plane-outline"></ion-icon>
+    <input type="text" id="input" placeholder="Escreva aqui...">
+    <button onclick="mandarMensagem()"><ion-icon class="icon-bottom" name="paper-plane-outline"></ion-icon></button>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
