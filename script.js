@@ -3,6 +3,11 @@ console.log(nomeUsuario);
 
 let dados;
 
+const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+
+promessa.then(processarResposta);
+promessa.catch(tratarErro);
+
 function atualiza(){
   const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
 
@@ -24,11 +29,6 @@ function processarResposta(resposta) {
 function tratarErro() {
   window.location.reload();
 }
-
-//const requisicao = axios.post('http://...', dados);
-
-//requisicao.then(tratarSucesso);
-//requisicao.catch(tratarError);
 
 function renderizarMensagem(){
   const conteudo = document.querySelector('.content');
@@ -56,14 +56,15 @@ function renderizarMensagem(){
 function mandarMensagem(){
   const minhaMensagem = document.getElementById("input").value;
   document.getElementById("input").value = '';
+
   const  novaMensagem = {
     from: nomeUsuario,
     to: "Todos",
     text: minhaMensagem,
     type: "message"
   }
-
+  
   const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', novaMensagem); 
-  requisicao.then(renderizarMensagem);
+  requisicao.then(processarResposta);
   requisicao.catch(tratarError);
 }
